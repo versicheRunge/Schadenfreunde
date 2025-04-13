@@ -1,0 +1,2634 @@
+/* Comic-Game-Stil für das Riester-Quiz */
+
+:root {
+  /* Kräftige, kontrastreiche Farbpalette - verstärkt */
+  --hero-blue: #2563eb;       /* Hero-Blau */
+  --hero-blue-light: #3b82f6; /* Helleres Hero-Blau */
+  --hero-blue-dark: #1e40af;  /* Dunkleres Hero-Blau */
+  --zuschuss-green: #10b981;  /* Zuschuss-Grün */
+  --zuschuss-green-light: #34d399; /* Helleres Zuschuss-Grün */
+  --warn-red: #ef4444;        /* Warn-Rot */
+  --warn-red-light: #f87171;  /* Helleres Warn-Rot */
+  --bonus-gold: #f59e0b;      /* Bonus-Gold */
+  --bonus-gold-light: #fbbf24; /* Helleres Bonus-Gold */
+  --dark-purple: #7e22ce;     /* Dunkles Lila für Akzente */
+  --light-purple: #a855f7;    /* Helles Lila für Akzente */
+  --neon-blue: #00f2ff;       /* Neon-Blau für Highlights */
+  --neon-pink: #ff00e4;       /* Neon-Pink für Highlights */
+  --neon-green: #00ff66;      /* Neon-Grün für Highlights */
+  
+  /* Schatten und Effekte - verstärkt */
+  --glow-blue: 0 0 20px rgba(59, 130, 246, 0.8);
+  --glow-green: 0 0 20px rgba(16, 185, 129, 0.8);
+  --glow-red: 0 0 20px rgba(239, 68, 68, 0.8);
+  --glow-gold: 0 0 20px rgba(245, 158, 11, 0.8);
+  --glow-neon-blue: 0 0 25px rgba(0, 242, 255, 0.9);
+  --glow-neon-pink: 0 0 25px rgba(255, 0, 228, 0.9);
+  --glow-neon-green: 0 0 25px rgba(0, 255, 102, 0.9);
+  
+  /* 3D-Effekte - verstärkt */
+  --button-3d-shadow: 0 7px 0;
+  --card-3d-shadow: 0 10px 0;
+}
+
+/* ===== Allgemeine Stilanpassungen ===== */
+body {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  color: #fff;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: -1;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Comic-Stil Überschriften ===== */
+h1, h2, h3 {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Verbesserte Avatar-Darstellung ===== */
+.avatar-select {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.avatar {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 
+    var(--card-3d-shadow) #cbd5e1,
+    0 15px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid transparent;
+  width: 180px;
+}
+
+.avatar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.avatar:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 
+    var(--card-3d-shadow) #cbd5e1,
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    0 0 20px var(--neon-blue);
+}
+
+.avatar.selected {
+  border-color: var(--bonus-gold);
+  box-shadow: 
+    var(--card-3d-shadow) #cbd5e1,
+    0 15px 30px rgba(0, 0, 0, 0.15),
+    0 0 25px var(--bonus-gold);
+}
+
+.avatar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid var(--hero-blue);
+  background: linear-gradient(135deg, var(--hero-blue-light) 0%, var(--hero-blue) 100%);
+  padding: 5px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.avatar:hover img {
+  transform: rotate(10deg) scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--neon-blue);
+}
+
+.avatar p {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: var(--hero-blue-dark);
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.character-skill {
+  background: var(--bonus-gold);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  box-shadow: 0 3px 0 #d97706;
+}
+
+h1 {
+  font-size: 3rem;
+  color: var(--bonus-gold);
+  text-shadow: 
+    3px 3px 0 var(--hero-blue-dark),
+    6px 6px 0 rgba(0, 0, 0, 0.2);
+  transform: rotate(-2deg);
+  margin-bottom: 1.5rem;
+}
+
+.subtitle {
+  font-size: 1.4rem;
+  color: white;
+  transform: rotate(1deg);
+  display: inline-block;
+  background-color: var(--warn-red);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+  margin-top: -0.5rem;
+}
+
+/* ===== Game-Style Buttons ===== */
+.btn {
+  background: linear-gradient(135deg, var(--hero-blue-light) 0%, var(--hero-blue) 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    var(--button-3d-shadow) var(--hero-blue-dark),
+    0 10px 20px rgba(0, 0, 0, 0.2),
+    inset 0 2px 10px rgba(255, 255, 255, 0.3);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: 0.5s;
+  z-index: 1;
+}
+
+.btn:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 
+    var(--button-3d-shadow) var(--hero-blue-dark),
+    0 15px 25px rgba(0, 0, 0, 0.3),
+    0 0 15px var(--neon-blue);
+  filter: brightness(1.1);
+  letter-spacing: 1.5px;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:active {
+  transform: translateY(3px) scale(0.98);
+  box-shadow: 
+    0 3px 0 var(--hero-blue-dark),
+    0 5px 10px rgba(0, 0, 0, 0.2);
+  filter: brightness(0.95);
+}
+
+.btn.pulse-btn {
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 
+      var(--button-3d-shadow) var(--hero-blue-dark),
+      0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  50% {
+    box-shadow: 
+      var(--button-3d-shadow) var(--hero-blue-dark),
+      0 0 25px 15px rgba(59, 130, 246, 0.3),
+      0 0 10px var(--neon-blue);
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  100% {
+    box-shadow: 
+      var(--button-3d-shadow) var(--hero-blue-dark),
+      0 0 0 0 rgba(59, 130, 246, 0);
+  }
+
+.btn-secondary {
+  background: var(--bonus-gold);
+  box-shadow: 
+    var(--button-3d-shadow) #d97706,
+    0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary:hover {
+  box-shadow: 
+    var(--button-3d-shadow) #d97706,
+    0 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary:active {
+  box-shadow: 
+    0 3px 0 #d97706,
+    0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Fortschrittsanzeige ===== */
+.progress-container {
+  width: 100%;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 3px solid white;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--zuschuss-green-light), var(--zuschuss-green));
+  width: 0%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* ===== Comic-Style Fragen und Antworten ===== */
+.question-container {
+  background-color: white;
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 
+    var(--card-3d-shadow) #cbd5e1,
+    0 15px 30px rgba(0, 0, 0, 0.15),
+    inset 0 2px 10px rgba(255, 255, 255, 0.5);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  border: 3px solid white;
+  transition: all 0.3s ease;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: perspective(1000px) translateY(0px);
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  50% {
+    transform: perspective(1000px) translateY(-10px);
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  100% {
+    transform: perspective(1000px) translateY(0px);
+  }
+
+.question-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.question-container::after {
+  content: '❓';
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  font-size: 3rem;
+  background: var(--bonus-gold);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: rotate(15deg);
+  z-index: 2;
+  border: 3px solid white;
+}
+
+#questionText {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-size: 1.7rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--hero-blue-dark);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+  padding: 1.5rem;
+  background-color: rgba(59, 130, 246, 0.1);
+  border-radius: 10px;
+  border-left: 5px solid var(--hero-blue);
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.answer-options {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.answer-option {
+  background: white;
+  border: 3px solid var(--hero-blue-light);
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  text-align: left;
+  color: var(--hero-blue-dark);
+  box-shadow: 
+    0 5px 0 var(--hero-blue-light),
+    0 8px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.answer-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(255, 255, 255, 0) 50%);
+  pointer-events: none;
+}
+
+.answer-option:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 
+    0 8px 0 var(--hero-blue-light),
+    0 12px 20px rgba(0, 0, 0, 0.15),
+    0 0 15px rgba(59, 130, 246, 0.3);
+  border-color: var(--hero-blue);
+  color: var(--hero-blue);
+}
+
+.answer-option:active {
+  transform: translateY(3px);
+  box-shadow: 
+    0 2px 0 var(--hero-blue-light),
+    0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.answer-option.correct {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.2) 100%);
+  border-color: var(--zuschuss-green);
+  box-shadow: 
+    0 5px 0 var(--zuschuss-green),
+    0 8px 15px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(16, 185, 129, 0.3);
+  color: var(--zuschuss-green);
+  animation: correct-answer-glow 2s infinite;
+}
+
+@keyframes correct-answer-glow {
+  0% {
+    box-shadow: 
+      0 5px 0 var(--zuschuss-green),
+      0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  50% {
+    box-shadow: 
+      0 5px 0 var(--zuschuss-green),
+      0 8px 15px rgba(0, 0, 0, 0.1),
+      0 0 20px rgba(16, 185, 129, 0.5);
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  100% {
+    box-shadow: 
+      0 5px 0 var(--zuschuss-green),
+      0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+
+.answer-option.wrong {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.2) 100%);
+  border-color: var(--warn-red);
+  box-shadow: 
+    0 5px 0 var(--warn-red),
+    0 8px 15px rgba(0, 0, 0, 0.1);
+  color: var(--warn-red);
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+.answer-options
+  gap: 1rem;
+}
+
+.answer-option {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  padding: 1.2rem 1.5rem;
+  background: white;
+  color: #1e293b;
+  border-radius: 12px;
+  box-shadow: 0 4px 0 #cbd5e1, 0 8px 16px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  border: 2px solid #e2e8f0;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.answer-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--hero-blue);
+  transition: width 0.2s ease;
+}
+
+.answer-option:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 0 #cbd5e1, 0 12px 20px rgba(0, 0, 0, 0.1);
+  border-color: var(--hero-blue-light);
+}
+
+.answer-option:hover::before {
+  width: 8px;
+}
+
+.answer-option.selected {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: var(--hero-blue);
+  box-shadow: 0 4px 0 var(--hero-blue-dark), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.answer-option.correct {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-color: var(--zuschuss-green);
+  box-shadow: 0 4px 0 var(--zuschuss-green), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.answer-option.correct::before {
+  background: var(--zuschuss-green);
+  width: 8px;
+}
+
+.answer-option.incorrect {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: var(--warn-red);
+  box-shadow: 0 4px 0 var(--warn-red), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.answer-option.incorrect::before {
+  background: var(--warn-red);
+  width: 8px;
+}
+
+/* ===== Charakterdesign (Avatare) ===== */
+.avatar-select {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.avatar {
+  width: 180px;
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 
+    var(--card-3d-shadow) #cbd5e1,
+    0 10px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+}
+
+.avatar::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.avatar:hover {
+  transform: translateY(-10px) perspective(1000px) rotateX(5deg);
+  box-shadow: 
+    var(--card-3d-shadow) #cbd5e1,
+    0 20px 30px rgba(0, 0, 0, 0.15);
+}
+
+.avatar:hover::before {
+  opacity: 1;
+}
+
+.avatar.selected {
+  border: 3px solid var(--hero-blue);
+  box-shadow: 
+    var(--card-3d-shadow) var(--hero-blue-dark),
+    0 10px 20px rgba(59, 130, 246, 0.3),
+    0 0 15px rgba(59, 130, 246, 0.5);
+}
+
+.avatar img {
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  margin-bottom: 1rem;
+  background-color: var(--hero-blue-light);
+  padding: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.avatar:hover img {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.avatar p {
+  font-weight: bold;
+  color: var(--hero-blue-dark);
+  margin: 0.5rem 0 0;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.avatar:hover p {
+  color: var(--hero-blue);
+}
+
+/* ===== Gegner-Styling ===== */
+.current-enemy {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  border-radius: 30px;
+  padding: 10px 20px 10px 10px;
+  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+  border: 2px solid white;
+  color: white;
+  z-index: 10;
+}
+
+.current-enemy-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  background-color: white;
+  padding: 3px;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.current-enemy-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%);
+  border-radius: 50%;
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: enemy-pulse 2s infinite alternate;
+}
+
+@keyframes enemy-pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+.current-enemy-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  width: 100%;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #f8fafc, #f1f5f9);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 60%
+  );
+}
+
+/* ===== Level-Karten ===== */
+.level-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 
+    var(--card-3d-shadow) #cbd5e1,
+    0 15px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+}
+
+.level-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--hero-blue);
+}
+
+.level-card:hover {
+  transform: translateY(-10px) perspective(1000px) rotateX(5deg);
+  box-shadow: 
+    var(--card-3d-shadow) #cbd5e1,
+    0 25px 40px rgba(0, 0, 0, 0.15);
+}
+
+.level-card h3 {
+  color: var(--hero-blue-dark);
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.level-card p {
+  color: #64748b;
+  margin-bottom: 1rem;
+}
+
+.level-enemy {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.level-enemy img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.level-card:hover .level-enemy img {
+  transform: scale(1.2);
+}
+
+.level-card.completed::before {
+  background: var(--zuschuss-green);
+}
+
+.level-card.locked {
+  opacity: 0.7;
+  filter: grayscale(0.7);
+}
+
+.level-card.locked::after {
+  content: '🔒';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: var(--warn-red);
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Endscreen & Urkunde ===== */
+.victory-content {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 
+    var(--card-3d-shadow) #cbd5e1,
+    0 20px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.victory-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(90deg, var(--bonus-gold-light), var(--bonus-gold));
+}
+
+.certificate-container {
+  margin: 2rem 0;
+  position: relative;
+}
+
+#certificateCanvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .avatar-select {
+    gap: 1rem;
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  
+  .avatar {
+    width: 140px;
+    padding: 1rem;
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  
+  .avatar img {
+    width: 80px;
+    height: 80px;
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  
+  h1 {
+    font-size: 2.2rem;
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  
+  .btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  
+  .current-enemy {
+    top: 10px;
+    right: 10px;
+    padding: 5px 15px 5px 5px;
+  }
+
+/* ===== Verbesserte Gegner-Darstellung ===== */
+.current-enemy {
+  position: relative;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+}
+
+.current-enemy-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  animation: enemy-float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes enemy-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.current-enemy-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 4px solid var(--warn-red);
+  background: linear-gradient(135deg, var(--warn-red-light) 0%, var(--warn-red) 100%);
+  padding: 5px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 20px var(--warn-red-light);
+  transition: all 0.3s ease;
+}
+
+.current-enemy-image::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px dashed var(--warn-red-light);
+  animation: rotate 10s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.current-enemy-info {
+  text-align: center;
+  background: var(--warn-red);
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: -20px;
+  z-index: 2;
+  min-width: 200px;
+  border: 2px solid white;
+}
+
+.current-enemy-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.enemy-health-container {
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid white;
+}
+
+.enemy-health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green) 0%, var(--zuschuss-green) 100%);
+  width: 100%;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-health-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 51%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+  
+  .current-enemy-image {
+    width: 40px;
+    height: 40px;
+  }
+
+/* ===== Animationen ===== */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Spezielle Effekte für Charaktere */
+.character-skill {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--hero-blue);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.avatar:hover .character-skill {
+  opacity: 1;
+  bottom: 10px;
+}
+
+/* Spezielle Charaktereffekte */
+.avatar[data-avatar="Brutto kann jeder"] img {
+  background-color: var(--hero-blue-light);
+}
+
+.avatar[data-avatar="Lady Vorsicht"] img {
+  background-color: var(--zuschuss-green-light);
+}
+
+.avatar[data-avatar="Futureproof X"] img {
+  background-color: var(--light-purple);
+}
+
+/* Spezielle Charakterfähigkeiten */
+.avatar[data-avatar="Brutto kann jeder"] .character-skill {
+  background: var(--hero-blue);
+}
+
+.avatar[data-avatar="Lady Vorsicht"] .character-skill {
+  background: var(--zuschuss-green);
+}
+
+.avatar[data-avatar="Futureproof X"] .character-skill {
+  background: var(--dark-purple);
+}

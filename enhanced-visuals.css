@@ -1,0 +1,227 @@
+/* Verbesserte visuelle Effekte für das Riester-Quiz */
+
+/* Verbesserte Lesbarkeit */
+.question-text {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 1.8rem;
+  line-height: 1.8;
+  color: #2d3748;
+  background: rgba(255, 255, 255, 0.98);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2.5rem;
+  animation: fadeIn 0.5s ease-out;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  border-left: 4px solid #4299e1;
+}
+
+/* Verbesserte Lesbarkeit für Quizfragen */
+#questionText {
+  color: #2d3748;
+  background-color: rgba(255, 255, 255, 0.98);
+  text-shadow: none;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.answer-option {
+  color: #2d3748;
+  background-color: rgba(255, 255, 255, 0.98);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.answer-option:hover {
+  background-color: #f7fafc;
+  color: #1a202c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15);
+  border-left: 3px solid #4299e1;
+}
+
+/* Avatar-Tooltip Styling */
+#avatar-tooltip {
+  position: absolute;
+  width: 300px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  color: #1a1a1a;
+  text-align: left;
+  border: 2px solid #1e3a8a;
+}
+
+#avatar-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#avatar-tooltip h3 {
+  margin-top: 0;
+  color: #1e3a8a;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+#avatar-tooltip p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Verbesserter Schreibmaschineneffekt */
+.typewriter {
+  position: relative;
+  overflow: visible;
+  white-space: normal;
+  margin: 0 auto;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  color: #2d3748;
+}
+
+.typewriter::after {
+  content: '|';
+  position: absolute;
+  display: inline-block;
+  color: #4299e1;
+  font-weight: bold;
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+.typewriter-paragraph {
+  position: relative;
+  overflow: visible;
+  white-space: normal;
+  display: block;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: #2d3748;
+}
+
+.typewriter-paragraph::after {
+  content: '|';
+  position: absolute;
+  display: inline-block;
+  color: #4299e1;
+  font-weight: bold;
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Avatar-Container */
+.battle-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  margin: 2rem 0;
+  perspective: 1000px;
+}
+
+/* Avatar-Styling */
+.avatar {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.avatar.player {
+  animation: playerIdle 2s ease-in-out infinite;
+}
+
+.avatar.enemy {
+  animation: enemyIdle 2s ease-in-out infinite;
+}
+
+@keyframes playerIdle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes enemyIdle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+/* Kampfanimationen */
+.avatar.attack {
+  animation: attackAnimation 0.5s ease-in-out;
+}
+
+.avatar.hit {
+  animation: hitAnimation 0.3s ease-in-out;
+}
+
+@keyframes attackAnimation {
+  0% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(50px) rotate(15deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+@keyframes hitAnimation {
+  0% { transform: translateX(0) scale(1); }
+  50% { transform: translateX(-20px) scale(0.9); }
+  100% { transform: translateX(0) scale(1); }
+}
+
+/* Nebeleffekt */
+.fog-effect {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%);
+  filter: blur(8px);
+  animation: fogAnimation 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes fogAnimation {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Blitzeffekte */
+.lightning {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  animation: lightningFlash 0.5s ease-out;
+}
+
+@keyframes lightningFlash {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  50% { opacity: 0; }
+  75% { opacity: 0.5; }
+  100% { opacity: 0; }
+}

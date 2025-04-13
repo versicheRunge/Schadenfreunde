@@ -1,0 +1,335 @@
+/* CSS für visuelle Effekte im Riester-Helden Quiz */
+
+/* Verbesserte Lesbarkeit für Fragen */
+#questionText {
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: #2d3748;
+  background: rgba(255, 255, 255, 0.98);
+  padding: 1.8rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2.5rem;
+  border-left: 4px solid #4299e1;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.answer-options {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.answer-option {
+  font-size: 1.2rem;
+  padding: 1.4rem 1.6rem;
+  margin: 0.5rem 0;
+  background: rgba(255, 255, 255, 0.98);
+  color: #2d3748;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border-left: 3px solid #e2e8f0;
+  position: relative;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+}
+
+.answer-option:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(66, 153, 225, 0.2);
+  background: #f7fafc;
+  border-left-color: #4299e1;
+}
+
+/* Kampf-Effekte und Animationen */
+.lightning-effect {
+  position: absolute;
+  pointer-events: none;
+  z-index: 9999;
+  background: linear-gradient(to bottom, transparent, #fff, transparent);
+  opacity: 0;
+  animation: lightning 0.5s ease-out;
+}
+
+@keyframes lightning {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  20% { opacity: 0; }
+  30% { opacity: 1; }
+  40%, 100% { opacity: 0; }
+}
+
+.spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #ffeb3b;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 10px #ff9800;
+  animation: spark 0.6s ease-out forwards;
+}
+
+@keyframes spark {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty));
+    opacity: 0;
+  }
+}
+
+/* Partikeleffekte */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  will-change: transform, opacity;
+}
+
+/* Dynamische Hintergrundeffekte */
+.bg-effect-default {
+  background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+  transition: background 0.5s ease;
+}
+
+.bg-effect-battle {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  animation: bgPulseBattle 3s infinite alternate;
+  color: white;
+}
+
+.bg-effect-victory {
+  background: linear-gradient(135deg, #047857 0%, #10b981 100%);
+  animation: bgPulseVictory 2s infinite alternate;
+  color: white;
+}
+
+.bg-effect-boss {
+  background: linear-gradient(135deg, #7f1d1d 0%, #ef4444 100%);
+  animation: bgPulseBoss 1.5s infinite alternate;
+  color: white;
+}
+
+/* Hintergrundanimationen */
+@keyframes bgPulseBattle {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes bgPulseVictory {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes bgPulseBoss {
+  0% {
+    background-position: 0% 50%;
+    background-size: 200% 200%;
+  }
+  100% {
+    background-position: 100% 50%;
+    background-size: 300% 300%;
+  }
+}
+
+/* Spezielle Effekte für Gegner */
+.enemy-image.damaged {
+  animation: enemyDamage 0.5s;
+}
+
+/* Gegner-Schadenszustände */
+.enemy-damage-state-1 { filter: brightness(0.9) contrast(1.1); }
+.enemy-damage-state-2 { filter: brightness(0.8) contrast(1.2) saturate(1.2); }
+.enemy-damage-state-3 { filter: brightness(0.7) contrast(1.3) saturate(1.3) hue-rotate(5deg); }
+.enemy-damage-state-4 { filter: brightness(0.6) contrast(1.4) saturate(1.4) hue-rotate(10deg); }
+.enemy-damage-state-5 { filter: brightness(0.5) contrast(1.5) saturate(1.5) hue-rotate(15deg); }
+
+/* Atmosphärische Effekte */
+.bg-smoke {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3CradialGradient id='fog' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' style='stop-color:white;stop-opacity:0.1'/%3E%3Cstop offset='100%25' style='stop-color:white;stop-opacity:0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23fog)'/%3E%3C/svg%3E");
+  animation: smokeDrift 20s infinite linear;
+  opacity: 0.7;
+}
+
+@keyframes smokeDrift {
+  0% { background-position: 0 0; }
+  100% { background-position: 100% 100%; }
+}
+
+@keyframes enemyDamage {
+  0% {
+    transform: translateX(0);
+    filter: brightness(1);
+  }
+  25% {
+    transform: translateX(-10px);
+    filter: brightness(1.5) contrast(1.2) hue-rotate(30deg);
+  }
+  50% {
+    transform: translateX(10px);
+    filter: brightness(1.5) contrast(1.2) hue-rotate(-30deg);
+  }
+  75% {
+    transform: translateX(-5px);
+    filter: brightness(1.2) contrast(1.1);
+  }
+  100% {
+    transform: translateX(0);
+    filter: brightness(1);
+  }
+}
+
+/* Flammeneffekt für Terror TRU */
+.flame-effect {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 80px;
+  background: linear-gradient(to top, #ff4500, #ffa500, #ffff00);
+  border-radius: 30px 30px 10px 10px;
+  animation: flameFlicker 0.5s infinite alternate;
+  z-index: -1;
+  filter: blur(5px);
+}
+
+@keyframes flameFlicker {
+  0% {
+    height: 80px;
+    opacity: 0.9;
+  }
+  100% {
+    height: 90px;
+    opacity: 1;
+  }
+}
+
+/* Raucheffekt für Terror TRU */
+.smoke-effect {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(200, 200, 200, 0.4);
+  border-radius: 50%;
+  animation: smokeRise 3s infinite;
+  z-index: -2;
+  filter: blur(10px);
+}
+
+@keyframes smokeRise {
+  0% {
+    transform: translateX(-50%) translateY(0) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-100px) scale(3);
+    opacity: 0;
+  }
+}
+
+/* Effekt für richtige Antwort */
+.answer-option.correct {
+  animation: correctGlow 1s;
+  background-color: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+}
+
+@keyframes correctGlow {
+  0% {
+    box-shadow: 0 0 5px #10b981;
+  }
+  50% {
+    box-shadow: 0 0 20px #10b981;
+  }
+  100% {
+    box-shadow: 0 0 5px #10b981;
+  }
+}
+
+/* Effekt für falsche Antwort */
+.answer-option.wrong {
+  animation: wrongShake 0.5s;
+  background-color: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+}
+
+@keyframes wrongShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-10px);
+  }
+  40%, 80% {
+    transform: translateX(10px);
+  }
+}
+
+/* Levelaufstiegseffekt */
+.level-up-flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9998;
+  pointer-events: none;
+  animation: levelUpFlash 1s forwards;
+}
+
+@keyframes levelUpFlash {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Pulsierender Button-Effekt */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}

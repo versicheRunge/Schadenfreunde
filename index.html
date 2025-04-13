@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riester-Helden – Die Vollkasko fürs Gehirn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="story.css">
+  <link rel="stylesheet" href="effects.css">
+  <link rel="stylesheet" href="enhanced-visuals.css">
+  <link rel="stylesheet" href="battle-effects.css">
+  <link rel="stylesheet" href="fog-effects.css">
+  <link rel="stylesheet" href="comic-game-style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Startbildschirm -->
+    <div id="startScreen" class="screen visible">
+      <div class="logo-container animate__animated animate__fadeIn">
+        <h1>Riester-Helden 🦸‍♂️</h1>
+        <p class="subtitle">Die Vollkasko fürs Gehirn (und deine Zukunft!) 🧠💰</p>
+      </div>
+      <div class="intro-text animate__animated animate__fadeIn animate__delay-1s">
+        <p>Willkommen in der wundersamen Welt der Riester-Rente! 🎢 Hier lernst du, warum dein zukünftiges Ich dir dankbar sein wird - oder dich verfluchen wird, wenn du jetzt nicht aufpasst! 😱</p>
+        <p>Bist du bereit, vom Altersvorsorge-Anfänger zum Zulagen-Superhelden aufzusteigen? 💪</p>
+      </div>
+      <button id="startButton" class="btn pulse-btn animate__animated animate__fadeIn animate__delay-2s">Quiz starten 🚀</button>
+    </div>
+
+    <!-- Spieler-Info-Bildschirm -->
+    <div id="playerInfoScreen" class="screen">
+      <h2 class="animate__animated animate__fadeInDown">Wie heißt du?</h2>
+      <input type="text" id="playerName" class="input-name animate__animated animate__fadeIn animate__delay-1s" placeholder="Dein Name" maxlength="30">
+      
+      <h3 class="animate__animated animate__fadeIn animate__delay-1s">Wähle deinen Avatar:</h3>
+      <div class="avatar-select animate__animated animate__fadeIn animate__delay-1s">
+        <div class="avatar" data-avatar="Brutto kann jeder">
+          <img src="https://api.dicebear.com/6.x/bottts/svg?seed=superhero" alt="Brutto kann jeder" width="100">
+          <p>Captain Netto 🦸‍♂️</p>
+          <div class="character-skill">Steuer-Superkraft</div>
+        </div>
+        <div class="avatar" data-avatar="Lady Vorsicht">
+          <img src="https://api.dicebear.com/6.x/bottts/svg?seed=detective" alt="Lady Vorsicht" width="100">
+          <p>Lady Vorsicht 🦸‍♀️</p>
+          <div class="character-skill">Zuschuss-Strategie</div>
+        </div>
+        <div class="avatar" data-avatar="Futureproof X">
+          <img src="https://api.dicebear.com/6.x/bottts/svg?seed=scientist" alt="Futureproof X" width="100">
+          <p>Futureproof X 🦸‍🧑</p>
+          <div class="character-skill">Daten-Analyse</div>
+        </div>
+      </div>
+      
+      <button id="startQuizButton" class="btn animate__animated animate__fadeIn animate__delay-2s" disabled>Los geht's! 🚀</button>
+    </div>
+
+    <!-- Level-Auswahl-Bildschirm -->
+    <div id="levelSelectScreen" class="screen">
+      <h2 class="animate__animated animate__fadeInDown">Wähle dein Level</h2>
+      <div class="player-info animate__animated animate__fadeIn animate__delay-1s">
+        <div id="playerAvatar"></div>
+        <p id="playerNameDisplay"></p>
+      </div>
+      
+      <div class="level-grid animate__animated animate__fadeIn animate__delay-1s">
+        <div class="level-card" data-level="1">
+          <h3>Level 1 🌱</h3>
+          <p>Riester-Rookie</p>
+          <div class="level-status">Nicht gespielt</div>
+          <div class="level-enemy">
+            <img src="https://api.dicebear.com/6.x/bottts/svg?seed=goblin&backgroundColor=b6e3f4" alt="Unwissenheits-Goblin">
+          </div>
+        </div>
+        <div class="level-card locked" data-level="2">
+          <h3>Level 2 🔍</h3>
+          <p>Zulagen-Detektiv</p>
+          <div class="level-status">Gesperrt</div>
+          <div class="level-enemy">
+            <img src="https://api.dicebear.com/6.x/bottts/svg?seed=troll&backgroundColor=ffcccb" alt="Bürokratie-Troll">
+          </div>
+        </div>
+        <div class="level-card locked" data-level="3">
+          <h3>Level 3 🧠</h3>
+          <p>Vorsorge-Virtuose</p>
+          <div class="level-status">Gesperrt</div>
+          <div class="level-enemy">
+            <img src="https://api.dicebear.com/6.x/bottts/svg?seed=hydra&backgroundColor=d1f4d9" alt="Produktvielfalt-Hydra">
+          </div>
+        </div>
+        <div class="level-card locked" data-level="4">
+          <h3>Level 4 💎</h3>
+          <p>Renten-Guru</p>
+          <div class="level-status">Gesperrt</div>
+          <div class="level-enemy">
+            <img src="https://api.dicebear.com/6.x/bottts/svg?seed=vampire&backgroundColor=e0d1f4" alt="Steuer-Vampir">
+          </div>
+        </div>
+        <div class="level-card locked" data-level="5">
+          <h3>Level 5 👑</h3>
+          <p>Altersvorsorge-Legende</p>
+          <div class="level-status">Gesperrt</div>
+           <div class="level-enemy">
+            <div class="terror-thomas-container">
+              <img src="images/terror-thomas.png" alt="Terror TRU (Totaler Riester Unterstützer)" class="terror-thomas-image">
+              <div class="flame-effect"></div>
+              <div class="smoke-effect"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz-Bildschirm -->
+    <div id="quizScreen" class="screen battle-mode">
+      <div class="quiz-header">
+        <div class="quiz-info">
+          <h3 id="currentLevelDisplay">Level 1</h3>
+          <div class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+          <p id="questionCounter">Frage 1/5</p>
+        </div>
+        <div class="score-display">
+          <p>Punkte: <span id="currentScore">0</span></p>
+        </div>
+      </div>
+      
+      <div class="current-enemy">
+        <div class="current-enemy-image">
+          <img id="currentEnemyImage" src="" alt="Aktueller Gegner">
+        </div>
+        <div class="current-enemy-info">
+          <div class="current-enemy-name" id="currentEnemyName"></div>
+          <div class="enemy-health-container">
+            <div id="enemyHealthBar" class="enemy-health-bar"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="questionContainer" class="question-container animate__animated animate__fadeIn">
+        <h3 id="questionText">Frage wird geladen...</h3>
+        <div id="answerOptions" class="answer-options">
+          <!-- Antwortoptionen werden dynamisch eingefügt -->
+        </div>
+      </div>
+      
+      <div id="feedbackContainer" class="feedback-container">
+        <div id="feedbackText" class="feedback-text"></div>
+        <button id="nextQuestionButton" class="btn">Nächste Frage 👉</button>
+      </div>
+    </div>
+
+    <!-- Level-Abschluss-Bildschirm -->
+    <div id="levelCompleteScreen" class="screen">
+      <h2 class="animate__animated animate__fadeInDown">Level <span id="completedLevel">1</span> abgeschlossen! 🎉</h2>
+      
+      <div class="level-complete-info animate__animated animate__fadeIn animate__delay-1s">
+        <p>Du hast <span id="levelScore">0</span> von 5 Punkten erreicht! 🏆</p>
+        <div id="starsContainer" class="stars-container">
+          <!-- Sterne werden dynamisch eingefügt -->
+        </div>
+      </div>
+      
+      <div class="level-complete-buttons animate__animated animate__fadeIn animate__delay-2s">
+        <button id="nextLevelButton" class="btn">Nächstes Level 🚀</button>
+        <button id="backToLevelsButton" class="btn btn-secondary">Zurück zur Levelauswahl 🔙</button>
+      </div>
+    </div>
+
+    <!-- Sieges-Bildschirm -->
+    <div id="victoryScreen" class="screen">
+      <h2 class="animate__animated animate__bounceIn">Epischer Triumph! 🏆</h2>
+      <div class="victory-content animate__animated animate__fadeIn animate__delay-1s">
+        <p>Du hast alle Level gemeistert und bist jetzt offiziell ein Riester-Held! 🦸‍♂️</p>
+        <p>Deine Gesamtpunktzahl: <span id="totalScore">0</span> von 25 Punkten 🎯</p>
+        <p>Deine Bewertung: <span id="playerRating">Riester-Rookie</span></p>
+        
+        <div class="certificate-container">
+          <canvas id="certificateCanvas" width="800" height="600"></canvas>
+          <a id="downloadLink" class="btn" download="Riester-Helden-Zertifikat.png" style="display: none;">Zertifikat herunterladen 📜</a>
+        </div>
+        
+        <div class="victory-buttons">
+          <button id="generateCertificateButton" class="btn">Zertifikat erstellen ✨</button>
+          <button id="restartGameButton" class="btn btn-secondary">Von vorne beginnen 🔄</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="story.js"></script>
+  <script src="audio-system.js"></script>
+  <script src="audio.js"></script>
+  <script src="effects.js"></script>
+  <script src="battle-effects.js"></script>
+  <script src="text-animations.js"></script>
+  <script src="fog-effects.js"></script>
+  <script src="quiz-extensions.js"></script>
+  <script src="avatar-descriptions.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

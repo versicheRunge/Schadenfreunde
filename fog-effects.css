@@ -1,0 +1,93 @@
+/* Nebeleffekte und Button-Animationen für das Riester-Quiz */
+
+/* Nebeleffekt-Container */
+.fog-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.7;
+  mix-blend-mode: overlay;
+}
+
+/* Nebel-Animation */
+.fog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%);
+  animation: fogAnimation 8s linear infinite;
+  transform-origin: center center;
+  opacity: 0;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.fog.active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+@keyframes fogAnimation {
+  0% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(0%) rotate(360deg);
+  }
+}
+
+/* Button-Verbrennungseffekt */
+.burn-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.burn-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 100, 0, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
+  z-index: 1;
+}
+
+.burn-button.burning::before {
+  width: 300%;
+  height: 300%;
+  background: rgba(255, 100, 0, 0);
+}
+
+.burn-button.burning {
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Hover-Effekt für Buttons */
+.burn-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Aktiver Zustand für Buttons */
+.burn-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

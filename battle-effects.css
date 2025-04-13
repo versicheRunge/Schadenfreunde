@@ -1,0 +1,196 @@
+/* Kampf-Effekte für das Riester-Quiz */
+
+/* Blitz-Effekt für Treffer */
+.lightning-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M50,0 L60,40 L80,50 L40,60 L50,100 L30,50 L10,40 L50,0' fill='%23ffff00' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E") no-repeat center center;
+  background-size: contain;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 0, 0.8));
+  animation: lightning-flash 0.5s ease-out forwards;
+}
+
+@keyframes lightning-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+  }
+  10% {
+    opacity: 0.9;
+    transform: scale(1.2) rotate(5deg);
+  }
+  20% {
+    opacity: 0.3;
+    transform: scale(0.8) rotate(-5deg);
+  }
+  30% {
+    opacity: 0.8;
+    transform: scale(1.1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+  }
+}
+
+/* Funken-Effekt für Treffer */
+.spark {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: #ffff00;
+  border-radius: 50%;
+  filter: blur(1px) drop-shadow(0 0 2px rgba(255, 255, 0, 0.8));
+  pointer-events: none;
+  z-index: 9;
+  animation: spark-fly 0.6s ease-out forwards;
+}
+
+@keyframes spark-fly {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0) translate(var(--tx), var(--ty));
+  }
+}
+
+/* Gegner-Schadenszustände */
+.enemy-damage-state-1 {
+  filter: brightness(0.9) contrast(1.1);
+}
+
+.enemy-damage-state-2 {
+  filter: brightness(0.8) contrast(1.2) saturate(1.2);
+}
+
+.enemy-damage-state-3 {
+  filter: brightness(0.7) contrast(1.3) saturate(1.3) hue-rotate(5deg);
+}
+
+.enemy-damage-state-4 {
+  filter: brightness(0.6) contrast(1.4) saturate(1.4) hue-rotate(10deg);
+}
+
+.enemy-damage-state-5 {
+  filter: brightness(0.5) contrast(1.5) saturate(1.5) hue-rotate(15deg);
+  animation: enemy-defeat 0.8s ease-in-out;
+}
+
+@keyframes enemy-defeat {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+  50% {
+    transform: scale(0.9) rotate(5deg);
+  }
+  75% {
+    transform: scale(1.05) rotate(-3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Animierte Hintergründe */
+.bg-money {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.15;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='50' viewBox='0 0 100 50'%3E%3Crect x='5' y='5' width='90' height='40' rx='3' fill='%2385bb65' stroke='%23000' stroke-width='1'/%3E%3Ccircle cx='25' cy='25' r='15' fill='%23fff' stroke='%23000' stroke-width='0.5'/%3E%3Ccircle cx='75' cy='25' r='15' fill='%23fff' stroke='%23000' stroke-width='0.5'/%3E%3Ctext x='50' y='30' font-family='Arial' font-size='20' text-anchor='middle' fill='%23000'%3E$%3C/text%3E%3C/svg%3E") repeat;
+  animation: money-fall 20s linear infinite;
+}
+
+@keyframes money-fall {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 1000px;
+  }
+}
+
+.bg-papers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.1;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='70' viewBox='0 0 50 70'%3E%3Crect x='5' y='5' width='40' height='60' fill='%23fff' stroke='%23000' stroke-width='0.5'/%3E%3Cline x1='10' y1='15' x2='40' y2='15' stroke='%23000' stroke-width='0.5'/%3E%3Cline x1='10' y1='25' x2='40' y2='25' stroke='%23000' stroke-width='0.5'/%3E%3Cline x1='10' y1='35' x2='40' y2='35' stroke='%23000' stroke-width='0.5'/%3E%3Cline x1='10' y1='45' x2='40' y2='45' stroke='%23000' stroke-width='0.5'/%3E%3Cline x1='10' y1='55' x2='30' y2='55' stroke='%23000' stroke-width='0.5'/%3E%3C/svg%3E") repeat;
+  animation: papers-swirl 30s linear infinite;
+}
+
+@keyframes papers-swirl {
+  0% {
+    background-position: 0 0;
+    transform: rotate(0deg);
+  }
+  100% {
+    background-position: 100px 100px;
+    transform: rotate(10deg);
+  }
+}
+
+.bg-smoke {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.2;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M30,70 Q40,60 50,70 Q60,80 70,70 Q80,60 90,70' fill='none' stroke='%23aaa' stroke-width='10' stroke-linecap='round'/%3E%3C/svg%3E") repeat;
+  animation: smoke-rise 15s linear infinite;
+}
+
+@keyframes smoke-rise {
+  from {
+    background-position: 0 0;
+    opacity: 0.2;
+  }
+  to {
+    background-position: 100px -500px;
+    opacity: 0.1;
+  }
+}
+
+/* Level-spezifische Hintergründe */
+.level-bg-1 {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+}
+
+.level-bg-2 {
+  background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 100%);
+}
+
+.level-bg-3 {
+  background: linear-gradient(135deg, #ede9fe 0%, #c4b5fd 100%);
+}
+
+.level-bg-4 {
+  background: linear-gradient(135deg, #fae8ff 0%, #e879f9 100%);
+}
+
+.level-bg-5 {
+  background: linear-gradient(135deg, #fee2e2 0%, #f87171 100%);
+}
